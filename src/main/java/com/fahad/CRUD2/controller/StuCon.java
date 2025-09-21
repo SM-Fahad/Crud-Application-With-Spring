@@ -1,6 +1,7 @@
 package com.fahad.CRUD2.controller;
 
 
+import com.fahad.CRUD2.DTO.StuDTO;
 import com.fahad.CRUD2.entity.Student;
 import com.fahad.CRUD2.service.StuServ;
 import jakarta.validation.Valid;
@@ -20,22 +21,22 @@ public class StuCon {
     }
 
     @PostMapping
-    public Student create(@Valid @RequestBody Student stu) {
-        return serv.save(stu);
+    public StuDTO create(@Valid @RequestBody StuDTO stuDTO) {
+        return serv.save(stuDTO);
     }
 
     @GetMapping
-    public List<Student> getAll(){
-        return serv.findAll();
+    public List<StuDTO> getAll(){
+        return serv.getAllStudnets();
     }
 
     @GetMapping("/{id}")
-    public Student getById(@PathVariable Long id) {
-        return serv.findById(id).orElse(null);
+    public StuDTO getById(@PathVariable Long id) {
+        return serv.getStudentById(id);
     }
 
     @PutMapping("/{id}")
-    public Student update(@PathVariable Long id, @Valid @RequestBody Student stu) {
+    public StuDTO update(@PathVariable Long id, @Valid @RequestBody StuDTO stu) {
         stu.setId(id);
         return serv.save(stu);
     }
@@ -43,5 +44,10 @@ public class StuCon {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         serv.deleteById(id);
+    }
+
+    @GetMapping("/student/{id}")
+    public StuDTO getStudentById(@PathVariable Long id) {
+        return serv.getStudentById(id);
     }
 }

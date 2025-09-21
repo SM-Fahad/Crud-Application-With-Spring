@@ -1,15 +1,20 @@
 package com.fahad.CRUD2.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 @Data
 @Entity
 public class Student extends BaseEntity {
@@ -31,6 +36,17 @@ public class Student extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "department_id")
+//    @JsonIgnoreProperties("students")
+    @ToString.Exclude
     private Department department;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "student_course",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+
+    @ToString.Exclude
+    private Set<Course> courses = new HashSet<>();
 }
