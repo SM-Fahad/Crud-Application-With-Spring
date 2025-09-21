@@ -1,5 +1,6 @@
 package com.fahad.CRUD2.controller;
 
+import com.fahad.CRUD2.DTO.DeptDTO;
 import com.fahad.CRUD2.entity.Department;
 import com.fahad.CRUD2.service.DeptServ;
 import jakarta.validation.Valid;
@@ -18,10 +19,14 @@ public class DeptCon {
         this.serv = serv;
     }
 
-    @PostMapping
-    public Department create(@Valid @RequestBody Department dept) {
-        return serv.save(dept);
-    }
+//    @PostMapping
+//    public Department create(@Valid @RequestBody Department dept) {
+//        return serv.save(dept);
+//    }
+
+//    public DeptDTO create(@Valid @RequestBody DeptDTO deptdto) {
+//        return serv.save(deptdto);
+//    }
 
     @GetMapping
     public List<Department> getAll(){
@@ -34,10 +39,10 @@ public class DeptCon {
     }
 
     @PutMapping("/{id}")
-    public Department update(@PathVariable Long id, @Valid @RequestBody Department dept) {
-        dept.setId(id);
-        return serv.save(dept);
-    }
+//    public Department update(@PathVariable Long id, @Valid @RequestBody Department dept) {
+//        dept.setId(id);
+//        return serv.save(dept);
+//    }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
